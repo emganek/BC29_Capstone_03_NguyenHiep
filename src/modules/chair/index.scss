@@ -25,3 +25,24 @@ $clr-ghe-dangDat: yellow;
         cursor: not-allowed;
     }
 }
+
+.ghe-sample {
+    width: 30px;
+    height: 30px;
+    background-color: $clr-ghe;
+    margin-right: $margin-ghe;
+    margin-bottom: $margin-ghe;
+    
+    &.gheVip {
+        background-color: $clr-ghe-vip;
+    }
+
+    &.dangDat {
+        background-color: $clr-ghe-dangDat;
+    }
+    
+    &.daDat {
+        background-color: $clr-ghe-daDat;
+        cursor: not-allowed;
+    }
+}

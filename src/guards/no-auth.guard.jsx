@@ -8,7 +8,7 @@ export default function NoAuthGaurd() {
 
   useEffect(() => {
     if (reduxState.userInfo) {
-      navigate('/');
+      navigate('/home');
     }
   }, []) 
   

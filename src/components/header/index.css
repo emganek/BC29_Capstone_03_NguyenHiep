@@ -21,7 +21,7 @@
     }
 }
 
-header {
+header.home-header {
     background-color: var(--header-clr-bg);
     position: sticky;
     width: 100%;
@@ -31,37 +31,37 @@ header {
 }
 
 @media screen and (min-width:768px) {
-    header {
+    header.home-header {
         position: fixed;
     }
 }
 
-header:hover {
+header.home-header:hover {
     background-color: var(--header-clr-bg-hov);
 }
 
-header .username {
+header.home-header .username {
     font-size: var(--header-fs-1);
     color:var(--clr-font-hover);
 }
 
 /* NAV BAR BRAND--------------------------- */
-nav.navbar {
+header.home-header nav.navbar {
     padding: var(--header-py) var(--header-px);
     position: relative;
 }
 
-.navbar-brand img {
+header.home-header .navbar-brand img {
     width: 150px;
 }
 
 /* NAV BAR ITEMS--------------------------- */
-.navbar-nav .nav-item {
+header.home-header .navbar-nav .nav-item {
     transition: color .5s;
     position: relative;
 }
 
-.navbar-nav .nav-item::before {
+header.home-header .navbar-nav .nav-item::before {
     content: "";
     position: absolute;
     width: 0px;
@@ -71,43 +71,43 @@ nav.navbar {
     transition: all .3s;
 }
 
-.navbar-nav .nav-item a {
+header.home-header .navbar-nav .nav-item a {
     color: var(--clr-font-dark) !important;
     font-size: var(--header-fs-1);
     transition: transform .3s;
 }
 
 @media screen and (max-width:575px) {
-    .navbar-nav .nav-item:hover {
+    header.home-header .navbar-nav .nav-item:hover {
         background-color: #17202b;
 
     }
 
-    .navbar-nav .nav-item:hover::before {
+    header.home-header .navbar-nav .nav-item:hover::before {
         width: 13px;
     }
 
-    .navbar-nav .nav-item:hover a {
+    header.home-header .navbar-nav .nav-item:hover a {
         transform: translateX(18px);
     }
 }
 
 @media screen and (min-width:768px) {
-    .navbar-nav .nav-item {
+    header.home-header .navbar-nav .nav-item {
         margin-right: var(--header-mx)
     }
 
-    .navbar-nav .nav-item a.active {
+    header.home-header .navbar-nav .nav-item a.active {
         color: var(--clr-font-hover) !important;
     }
 
-    .navbar-nav .nav-item:hover a {
+    header.home-header .navbar-nav .nav-item:hover a {
         color: var(--clr-font-hover) !important;
     }
 }
 
 /* NAV BAR TOGGLE--------------------------- */
-header nav .navbar-toggler {
+header.home-header nav .navbar-toggler {
     border-color: #ffffff75 !important;
 }
 

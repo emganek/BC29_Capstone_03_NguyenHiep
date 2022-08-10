@@ -7,3 +7,11 @@ export const loginAPI = (data) =>{
         data: data,
     })
 }
+
+export const registerAPI = (data) =>{
+    return request({
+        url:'QuanLyNguoiDung/DangKy',
+        method:'POST',
+        data,
+    })
+}

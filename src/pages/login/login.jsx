@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { USER_INFO_KEY } from '../../constants/common';
@@ -21,6 +21,10 @@ export default function Login() {
         setState({ ...state, [name]: value });
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const login = async (evt) => {
         evt.preventDefault();
 
@@ -29,7 +33,7 @@ export default function Login() {
 
             localStorage.setItem(USER_INFO_KEY, JSON.stringify(result.data.content));
             dispatch(setUserInfoAction(result.data.content));
-            navigate('/home');
+            navigate(-1);
             notification.success({
                 message: 'Login success',
             })

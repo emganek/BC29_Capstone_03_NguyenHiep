@@ -1,13 +1,11 @@
 import {
-    DesktopOutlined,
     FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import './index.css';
 const { Header, Content, Footer, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -20,15 +18,8 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Users', 'users', <UserOutlined />),
+    getItem('Movies', 'movies', <FileOutlined />),
 ];
 
 export default function AdminLayout() {
@@ -36,6 +27,7 @@ export default function AdminLayout() {
 
     return (
         <Layout
+            className="admin-layout"
             style={{
                 minHeight: '100vh',
             }}
@@ -56,15 +48,6 @@ export default function AdminLayout() {
                         margin: '0 16px',
                     }}
                 >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>HAhaha</Breadcrumb.Item>
-                        <Breadcrumb.Item>HiHiHi</Breadcrumb.Item>
-                        <Breadcrumb.Item>HiHiHi</Breadcrumb.Item>
-                    </Breadcrumb>
                     <div
                         className="site-layout-background"
                         style={{

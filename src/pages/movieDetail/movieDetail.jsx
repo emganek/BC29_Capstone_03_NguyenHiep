@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import { useEffect } from 'react';
 import MovieDetail from '../../modules/movieDetail/movieDetail'
 import ShowTime from '../../modules/showTime/showTime'
 export default function MovieDetailPage() {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[]);
     return (
         <div className="py-5 mt-md-5">
             <div className="container">

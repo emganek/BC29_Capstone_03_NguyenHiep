@@ -18,6 +18,7 @@
     width: 900px;
 }
 
+/* SCROLL BAR-------------------------------------------- */
 #booking-ticket .ds-ghe-wrapper::-webkit-scrollbar {
     height: 8px !important;
     width: 0px;
@@ -35,4 +36,45 @@
 
 #booking-ticket .ds-ghe-wrapper::-webkit-scrollbar-thumb:hover {
     background: #b30000;
+}
+
+
+/* DS GHE-------------------------------------------------- */
+#booking-ticket .cinema-info h4{
+    color: var(--clr-font-hover)
+}
+
+#booking-ticket .cinema-info h5, #booking-ticket .cinema-info h6, #booking-ticket .cinema-info p:nth-of-type(2) span{
+    color: var(--clr-font-detail-dark)
+}
+
+#booking-ticket .cinema-info h5 span, #booking-ticket .cinema-info h6 span, #booking-ticket .cinema-info p:nth-of-type(1) span, #booking-ticket .cinema-info p:nth-of-type(2){
+    color: var(--clr-font-dark);
+    font-weight: 700;
+}
+
+#booking-ticket .ghe-type {
+    color: var(--clr-font-detail-dark);
+    flex-direction: column;
+}
+
+@media screen and (min-width:1400px) {
+    #booking-ticket .ghe-type {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #booking-ticket .ghe-type div, #booking-ticket .ghe-type h4 {
+        margin-top:0px !important;
+        margin-bottom: 0px !important;
+    }
+    
+    #booking-ticket .ghe-type div button {
+        margin-right: 0.5em !important;
+        margin-left: 2em !important;
+    }
+    
+}
+#booking-ticket .ghe-type h4{
+    color: var(--clr-font-dark);
 }

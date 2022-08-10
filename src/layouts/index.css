@@ -1,0 +1,7 @@
+.admin-layout .logo{
+    background-image: url(../../public/assets/images/logo.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50px;
+}

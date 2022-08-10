@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { bookingTicketAPI, fetchRoomListAPI } from '../../services/booking';
@@ -56,7 +57,10 @@ export default function Booking() {
         }
 
         await bookingTicketAPI(data);
-        navigate('/');
+        navigate('/home');
+        notification.success({
+            message: "Đặt vé thành công"
+        })
     }
 
     return Object.keys(roomList).length !== 0 ?
@@ -64,21 +68,40 @@ export default function Booking() {
             <section id='booking-ticket'>
                 <div className="booking-ticket-wrapper">
                     <div className="row w-75 mx-auto my-5">
-                        <div className="col-md-4">
+                        <div className="col-md-4 cinema-info">
                             <img className="img-fluid" src={roomList.thongTinPhim.hinhAnh} alt="alt" />
-                            <h4>Tên phim: {roomList.thongTinPhim.tenPhim}</h4>
-                            <h5>Tên cụm rạp:{roomList.thongTinPhim.tenCumRap} </h5>
-                            <h6>Tên rạp: {roomList.thongTinPhim.tenRap}</h6>
-                            <p>Danh sách ghế: {selectedChairList.map((ele) => {
-                                return <span key={ele.tenGhe} className="badge badge-danger mr-2">{ele.tenGhe}</span>
+                            <h4>{roomList.thongTinPhim.tenPhim}</h4>
+                            <h5><span>Cinemas: </span>{roomList.thongTinPhim.tenCumRap} </h5>
+                            <h6><span>Room: </span> {roomList.thongTinPhim.tenRap}</h6>
+                            <p><span>Selected chairs:</span> {selectedChairList.map((ele) => {
+                                return <span key={ele.tenGhe} className="badge badge-warning mr-2">{ele.tenGhe}</span>
                             })}</p>
-                            <p>Tổng tiền:
+                            <p>Total price:
                                 <span> {calTotalPrice().toLocaleString()}</span>
                                 <span> VND</span>
                             </p>
-                            <button onClick={() => handleBookingTicket()} className="btn btn-primary font-weight-bold">BUY TICKETS</button>
+                            <button onClick={() => handleBookingTicket()} className="btn btn-danger font-weight-bold text-white">Purchase</button>
                         </div>
                         <div className="mt-5 mt-md-0 col-md-8 ds-ghe-wrapper">
+                            <div className='ghe-type d-flex mb-4'>
+                                <h4>Types of chair:</h4>
+                                <div className='d-flex align-items-center mt-2'>
+                                    <button disabled className='ghe-sample mr-4'></button>
+                                    <span>Normal chair</span>
+                                </div>
+                                <div className='d-flex align-items-center'>
+                                    <button disabled className='ghe-sample gheVip mr-4'></button>
+                                    <span>Vip chair</span>
+                                </div>
+                                <div className='d-flex align-items-center'>
+                                    <button disabled className='ghe-sample daDat mr-4'></button>
+                                    <span>Selected chair</span>
+                                </div>
+                                <div className='d-flex align-items-center'>
+                                    <button disabled className='ghe-sample dangDat mr-4'></button>
+                                    <span>Selecting chair</span>
+                                </div>
+                            </div>
                             <div className="ds-ghe">
                                 {
                                     roomList.danhSachGhe.map((ele, index) => {
@@ -100,3 +123,4 @@ export default function Booking() {
             <div>Loading</div>
         )
 }
+

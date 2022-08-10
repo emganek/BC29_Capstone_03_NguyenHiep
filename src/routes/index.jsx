@@ -10,6 +10,7 @@ import Login from '../pages/login/login';
 import MovieManagement from '../pages/movieManagement/movieManagement';
 import MovieDetailPage from '../pages/movieDetail/movieDetail';
 import AdminGuard from '../guards/admin.guard';
+import RegisterPage from '../pages/register/register';
 
 export default function Router() {
     const routing = useRoutes([
@@ -36,6 +37,10 @@ export default function Router() {
                         {
                             path: '/login',
                             element: <Login />,
+                        },
+                        {
+                            path: '/register',
+                            element: <RegisterPage />,
                         },
                     ]
                 },
