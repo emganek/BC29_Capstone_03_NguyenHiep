@@ -1,10 +1,11 @@
 import {
     FileOutlined,
     UserOutlined,
+    PlusOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import './index.css';
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -18,8 +19,11 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-    getItem('Users', 'users', <UserOutlined />),
-    getItem('Movies', 'movies', <FileOutlined />),
+    getItem(<Link to='/admin/user-management'>User</Link>, '1', <UserOutlined />),
+    getItem('Movies', 'sub1', <FileOutlined />,[
+        getItem(<Link to='/admin/movie-management'>Management</Link>, '2', <FileOutlined />),
+        getItem(<Link to='/admin/movie-add'>Add new</Link>, '3',<PlusOutlined />),
+      ]),
 ];
 
 export default function AdminLayout() {

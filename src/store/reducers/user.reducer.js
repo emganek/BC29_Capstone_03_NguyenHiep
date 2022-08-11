@@ -17,10 +17,7 @@ export const userReducer = (state=DEFAULT_STATE, {type, payload}) =>{
             state.userInfo = payload;
             return {...state};
         }
-            
-            break;
     
         default: return {...state};
-            break;
     }
 }

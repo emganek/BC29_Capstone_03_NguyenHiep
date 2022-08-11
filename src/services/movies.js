@@ -14,3 +14,11 @@ export const fetchMovieDetaiAPI = (maPhim) => {
         method: "GET",
     })
 }
+
+export const uploadNewMovieAPI = (formdata) => {
+    return request({
+        url: `QuanLyPhim/ThemPhimUploadHinh`,
+        method: "POST",
+        formdata,
+    })
+}

@@ -11,6 +11,9 @@ import MovieManagement from '../pages/movieManagement/movieManagement';
 import MovieDetailPage from '../pages/movieDetail/movieDetail';
 import AdminGuard from '../guards/admin.guard';
 import RegisterPage from '../pages/register/register';
+import UserManagement from '../pages/userManagement/userManagement';
+import MovieAdd from '../pages/movieAdd/movieAdd';
+import MovieEdit from '../pages/movieEdit/movieEdit';
 
 export default function Router() {
     const routing = useRoutes([
@@ -67,6 +70,18 @@ export default function Router() {
                         {
                             path: '/admin/movie-management',
                             element: <MovieManagement />,
+                        },
+                        {
+                            path: '/admin/user-management',
+                            element: <UserManagement />,
+                        },
+                        {
+                            path: '/admin/movie-add',
+                            element: <MovieAdd />,
+                        },
+                        {
+                            path: '/admin/movie-edit/:movieID',
+                            element: <MovieEdit />,
                         },
                     ]
                 },
