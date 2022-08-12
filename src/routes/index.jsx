@@ -14,6 +14,7 @@ import RegisterPage from '../pages/register/register';
 import UserManagement from '../pages/userManagement/userManagement';
 import MovieAdd from '../pages/movieAdd/movieAdd';
 import MovieEdit from '../pages/movieEdit/movieEdit';
+import MovieSchedule from '../pages/movieSchedule/movieSchedule';
 
 export default function Router() {
     const routing = useRoutes([
@@ -82,6 +83,10 @@ export default function Router() {
                         {
                             path: '/admin/movie-edit/:movieID',
                             element: <MovieEdit />,
+                        },
+                        {
+                            path: '/admin/movie-schedule/:movieID',
+                            element: <MovieSchedule />,
                         },
                     ]
                 },

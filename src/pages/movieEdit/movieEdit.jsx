@@ -10,13 +10,19 @@ import {
 } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchMovieDetaiAPI, uploadNewMovieAPI } from '../../services/movies';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MA_NHOM } from '../../constants/common';
+import { fetchMovieDetaiAPI, updateMovieAPI, uploadNewMovieAPI } from '../../services/movies';
 
 export default function MovieEdit() {
-    const [componentSize, setComponentSize] = useState('default');
     const params = useParams().movieID;
+    const navigate = useNavigate();
     const [image, setImage] = useState("");
+
+
+    //FORM CONFIG------------------------------------------BEGIN
+    const [form] = Form.useForm();
+    const [componentSize, setComponentSize] = useState('default');
     const [state, setState] = useState({
         tenPhim: '',
         trailer: '',
@@ -27,22 +33,47 @@ export default function MovieEdit() {
         hot: false,
         danhGia: 0,
         hinhAnh: {},
-        maNhom: "GP03",
+        maNhom: MA_NHOM,
+        maPhim: '',
     })
 
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
     };
+        //FORM CONFIG------------------------------------------END
+    //FORM CONFIG------------------------------------------END
 
-    useEffect(()=>{
-        const data = fetchMovieDetail();
-    },[]);
+    useEffect(() => {
+        fetchMovieDetail();
+    }, []);
 
-    const fetchMovieDetail = async () =>{
-        const result = await fetchMovieDetaiAPI(params);
-        console.log(result.data.content);
-        return result.data.content;
+    const fetchMovieDetail = async () => {
+        let result = await fetchMovieDetaiAPI(params);
+        result = result.data.content;
+        let newState = { ...state };
+
+        for (let key in state) {
+            if (key === "ngayKhoiChieu") {
+                form.setFieldsValue({
+                    [key]: moment(result[key]),
+                });
+                newState = { ...newState, [key]: moment(result[key]).format("DD/MM/YYYY") };
+            }
+            else if (key === "hinhAnh") {
+                setImage(result[key]);
+                newState = { ...newState, [key]: null };
+            }
+            else {
+                form.setFieldsValue({
+                    [key]: result[key],
+                });
+                newState = { ...newState, [key]: result[key] };
+            }
+        }
+
+        setState(newState)
     }
+
     //HANLE ACTION CỦA FORM------------------------------------------BEGIN
     const handleInputChange = (evt) => {
         const { name, value } = evt.target;
@@ -57,7 +88,9 @@ export default function MovieEdit() {
                 formData.append(key, state[key])
             }
             else {
-                formData.append('File',state.hinhAnh,state.hinhAnh.name)
+                if (state.hinhAnh !== null) {
+                    formData.append('File', state.hinhAnh, state.hinhAnh.name)
+                }
             }
         }
 
@@ -70,11 +103,15 @@ export default function MovieEdit() {
             }
         }
         try {
-            const result = await uploadNewMovieAPI(formData);
-            notification.success({message:"New movie is uploaded successfully"})
+            await updateMovieAPI(formData);
+            notification.success({ message: "Movie is updated successfully" });
+            navigate("/admin/movie-management");
         } catch (error) {
             console.log(error);
-            notification.error({message:"Upload new movie fail!"})
+            notification.error({
+                message: "Update movie fail!",
+                description: error.response.data.content,
+            })
         }
     }
 
@@ -85,6 +122,7 @@ export default function MovieEdit() {
         }
         setState({ ...state, ngayKhoiChieu: data });
     };
+
     const handleSwitchChange = (value, evt) => {
         const name = evt.target.name;
         setState({ ...state, [name]: value });
@@ -93,20 +131,20 @@ export default function MovieEdit() {
     const handleImageChange = (evt) => {
         const file = evt.target.files[0];
         setState({ ...state, hinhAnh: file });
-        // if (file) {
-        //     let reader = new FileReader();
-        //     reader.readAsDataURL(file);
-        //     reader.onload = (e) => {
-        //         setImage(e.target.result);
-        //     }
-        //     setState({ ...state, hinhAnh: file });
-        // }
-        // else {
-        //     setState({ ...state, hinhAnh: {} });
-        //     setImage({});
-        // }
+        if (file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                setImage(e.target.result);
+            }
+            setState({ ...state, hinhAnh: file });
+        }
+        else {
+            setState({ ...state, hinhAnh: {} });
+            setImage({});
+        }
     }
-
+    console.log(state)
     return (
         <Form
             labelCol={{
@@ -121,7 +159,7 @@ export default function MovieEdit() {
             }}
             onValuesChange={onFormLayoutChange}
             size={componentSize}
-
+            form={form}
             onFinish={handleSubmit}
         >
             <Form.Item label="Form Size" name="size">
@@ -131,8 +169,9 @@ export default function MovieEdit() {
                     <Radio.Button value="large">Large</Radio.Button>
                 </Radio.Group>
             </Form.Item>
+
             <Form.Item rules={[{ required: true, message: 'Please input your Movie Name!' }]} label="Movie Name" name="tenPhim">
-                <Input onChange={handleInputChange} name='tenPhim' />
+                <Input onChange={handleInputChange} value={"123123123"} name='tenPhim' />
             </Form.Item>
             <Form.Item rules={[{ required: true, message: 'Please input your Trailer link!' }]} name="trailer" label="Trailer link">
                 <Input onChange={handleInputChange} name='trailer' />
@@ -143,17 +182,17 @@ export default function MovieEdit() {
             <Form.Item rules={[{ required: true, message: 'Please choose a date!' }]} name="ngayKhoiChieu" label="Release Date">
                 <DatePicker onChange={handleChangeReleaseDate} name='ngayKhoiChieu' />
             </Form.Item>
-            <Form.Item label="Now showing" valuePropName="checked">
-                <Switch onChange={handleSwitchChange} name='dangChieu' />
+            <Form.Item name='dangChieu' label="Now showing" valuePropName="checked">
+                <Switch onChange={handleSwitchChange} checked={false} name='dangChieu' />
             </Form.Item>
-            <Form.Item label="Soon coming" valuePropName="checked">
+            <Form.Item name='sapChieu' label="Soon coming" valuePropName="checked">
                 <Switch onChange={handleSwitchChange} name='sapChieu' />
             </Form.Item>
-            <Form.Item label="Hot" valuePropName="checked">
+            <Form.Item name='hot' label="Hot" valuePropName="checked">
                 <Switch onChange={handleSwitchChange} name='hot' />
             </Form.Item>
             <Form.Item rules={[{ required: true, message: 'Please input your Rating!' }]} name="danhGia" label="Rating">
-                <InputNumber min={1} max={5} name='danhGia' onChangeCapture={handleInputChange} />
+                <InputNumber min={1} max={10} name='danhGia' onChangeCapture={handleInputChange} />
             </Form.Item>
             <Form.Item label="Image">
                 <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -164,7 +203,7 @@ export default function MovieEdit() {
                 </Form.Item>
             }
             <Form.Item colon={false} label=" ">
-                <Button type='primary' htmlType='submit'>Submit</Button>
+                <Button type='primary' htmlType='submit'>Update</Button>
             </Form.Item>
         </Form>
     );

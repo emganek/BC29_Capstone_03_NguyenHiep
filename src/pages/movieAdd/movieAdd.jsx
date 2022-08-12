@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
+import { MA_NHOM } from '../../constants/common';
 import { uploadNewMovieAPI } from '../../services/movies';
 import './index.css';
 
@@ -26,7 +27,7 @@ export default function MovieAdd() {
         hot: false,
         danhGia: 0,
         hinhAnh: {},
-        maNhom: "GP03",
+        maNhom: MA_NHOM,
     })
 
     const onFormLayoutChange = ({ size }) => {
@@ -48,24 +49,19 @@ export default function MovieAdd() {
                 formData.append(key, state[key])
             }
             else {
-                formData.append('File',state.hinhAnh,state.hinhAnh.name)
+                formData.append('File', state.hinhAnh, state.hinhAnh.name)
             }
         }
 
-        for (let key in state) {
-            if (key !== "hinhAnh") {
-                console.log(key, formData.get(key));
-            }
-            else {
-                console.log("File", formData.get("File"));
-            }
-        }
         try {
             const result = await uploadNewMovieAPI(formData);
-            notification.success({message:"New movie is uploaded successfully"})
+            notification.success({ message: "New movie is uploaded successfully" })
         } catch (error) {
             console.log(error);
-            notification.error({message:"Upload new movie fail!"})
+            notification.error({
+                message: "Upload new movie fail!",
+                description: error.response.data.content,
+            })
         }
     }
 
@@ -84,18 +80,18 @@ export default function MovieAdd() {
     const handleImageChange = (evt) => {
         const file = evt.target.files[0];
         setState({ ...state, hinhAnh: file });
-        // if (file) {
-        //     let reader = new FileReader();
-        //     reader.readAsDataURL(file);
-        //     reader.onload = (e) => {
-        //         setImage(e.target.result);
-        //     }
-        //     setState({ ...state, hinhAnh: file });
-        // }
-        // else {
-        //     setState({ ...state, hinhAnh: {} });
-        //     setImage({});
-        // }
+        if (file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                setImage(e.target.result);
+            }
+            setState({ ...state, hinhAnh: file });
+        }
+        else {
+            setState({ ...state, hinhAnh: {} });
+            setImage({});
+        }
     }
 
     return (
@@ -144,7 +140,7 @@ export default function MovieAdd() {
                 <Switch onChange={handleSwitchChange} name='hot' />
             </Form.Item>
             <Form.Item rules={[{ required: true, message: 'Please input your Rating!' }]} name="danhGia" label="Rating">
-                <InputNumber min={1} max={5} name='danhGia' onChangeCapture={handleInputChange} />
+                <InputNumber min={1} max={10} name='danhGia' onChangeCapture={handleInputChange} />
             </Form.Item>
             <Form.Item label="Image">
                 <input type="file" accept="image/*" onChange={handleImageChange} />

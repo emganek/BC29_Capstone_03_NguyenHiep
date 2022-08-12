@@ -20,10 +20,10 @@ function getItem(label, key, icon, children) {
 
 const items = [
     getItem(<Link to='/admin/user-management'>User</Link>, '1', <UserOutlined />),
-    getItem('Movies', 'sub1', <FileOutlined />,[
+    getItem('Movies', 'sub1', <FileOutlined />, [
         getItem(<Link to='/admin/movie-management'>Management</Link>, '2', <FileOutlined />),
-        getItem(<Link to='/admin/movie-add'>Add new</Link>, '3',<PlusOutlined />),
-      ]),
+        getItem(<Link to='/admin/movie-add'>Add new</Link>, '3', <PlusOutlined />),
+    ]),
 ];
 
 export default function AdminLayout() {

@@ -11,3 +11,8 @@
     color:blue;
     font-size: var(--header-fs-1);
 }
+
+.anticon-schedule.schedule-button{
+    color:green;
+    font-size: var(--header-fs-1);
+}

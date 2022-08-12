@@ -1,8 +1,8 @@
-import { Table } from 'antd';
+import { Table, Popconfirm, notification } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { fetchMovieListAPI } from '../../services/movies';
+import { deleteMovieAPI, fetchMovieListAPI } from '../../services/movies';
 import './index.css';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, ScheduleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 export default function MovieManagement() {
@@ -65,8 +65,11 @@ export default function MovieManagement() {
       render: (text, item, index) => {
         return (
           <React.Fragment key={index}>
-            <EditOutlined onClick={()=>navigate(`/admin/movie-edit/${item.maPhim}`)} className='edit-button mr-2'/>
-            <DeleteOutlined onClick={()=>console.log("hello")} className='delete-button' />
+            <EditOutlined onClick={() => navigate(`/admin/movie-edit/${item.maPhim}`)} className='edit-button mr-3' />
+            <Popconfirm title={`Are you sure to delete ${item.tenPhim}`} onConfirm={()=>confirmDelete(item.maPhim)} okText="Yes" cancelText="No">
+              <DeleteOutlined className='delete-button mr-3' />
+            </Popconfirm>
+            <ScheduleOutlined onClick={() => navigate(`/admin/movie-schedule/${item.maPhim}`)} className='schedule-button mr-3' />
           </React.Fragment>
         )
       },
@@ -84,6 +87,24 @@ export default function MovieManagement() {
     let movieList = await (await fetchMovieListAPI()).data.content
     movieList = movieList.map((ele, index) => ({ ...ele, key: index }))
     setMovieList(movieList);
+  }
+
+  const confirmDelete = (maPhim) =>{
+    handleDelete(maPhim);
+  }
+
+  const handleDelete = async (maPhim) => {
+    try {
+      await deleteMovieAPI(maPhim);
+      notification.success({ message: `Movie is deleted successfully!` });
+      fetchMovieList();
+    } catch (error) {
+      console.log(maPhim)
+      notification.error({ 
+        message: `Delete fail!`,
+        description: error.response.data.content,
+     });
+    }
   }
 
   return (
