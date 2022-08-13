@@ -12,7 +12,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MA_NHOM } from '../../constants/common';
-import { fetchMovieDetaiAPI, updateMovieAPI, uploadNewMovieAPI } from '../../services/movies';
+import { fetchMovieDetaiAPI, updateMovieAPI } from '../../services/movies';
 
 export default function MovieEdit() {
     const params = useParams().movieID;
@@ -94,20 +94,11 @@ export default function MovieEdit() {
             }
         }
 
-        for (let key in state) {
-            if (key !== "hinhAnh") {
-                console.log(key, formData.get(key));
-            }
-            else {
-                console.log("File", formData.get("File"));
-            }
-        }
         try {
             await updateMovieAPI(formData);
             notification.success({ message: "Movie is updated successfully" });
             navigate("/admin/movie-management");
         } catch (error) {
-            console.log(error);
             notification.error({
                 message: "Update movie fail!",
                 description: error.response.data.content,
@@ -171,7 +162,7 @@ export default function MovieEdit() {
             </Form.Item>
 
             <Form.Item rules={[{ required: true, message: 'Please input your Movie Name!' }]} label="Movie Name" name="tenPhim">
-                <Input onChange={handleInputChange} value={"123123123"} name='tenPhim' />
+                <Input onChange={handleInputChange} name='tenPhim' />
             </Form.Item>
             <Form.Item rules={[{ required: true, message: 'Please input your Trailer link!' }]} name="trailer" label="Trailer link">
                 <Input onChange={handleInputChange} name='trailer' />

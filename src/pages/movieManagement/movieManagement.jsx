@@ -1,4 +1,4 @@
-import { Table, Popconfirm, notification } from 'antd';
+import { Table, Popconfirm, notification, Input } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { deleteMovieAPI, fetchMovieListAPI } from '../../services/movies';
 import './index.css';
@@ -66,7 +66,7 @@ export default function MovieManagement() {
         return (
           <React.Fragment key={index}>
             <EditOutlined onClick={() => navigate(`/admin/movie-edit/${item.maPhim}`)} className='edit-button mr-3' />
-            <Popconfirm title={`Are you sure to delete ${item.tenPhim}`} onConfirm={()=>confirmDelete(item.maPhim)} okText="Yes" cancelText="No">
+            <Popconfirm title={`Are you sure to delete ${item.tenPhim}`} onConfirm={() => confirmDelete(item.maPhim)} okText="Yes" cancelText="No">
               <DeleteOutlined className='delete-button mr-3' />
             </Popconfirm>
             <ScheduleOutlined onClick={() => navigate(`/admin/movie-schedule/${item.maPhim}`)} className='schedule-button mr-3' />
@@ -83,13 +83,13 @@ export default function MovieManagement() {
     fetchMovieList();
   }, []);
 
-  const fetchMovieList = async () => {
-    let movieList = await (await fetchMovieListAPI()).data.content
+  const fetchMovieList = async (keyword = "") => {
+    let movieList = await (await fetchMovieListAPI(keyword)).data.content
     movieList = movieList.map((ele, index) => ({ ...ele, key: index }))
     setMovieList(movieList);
   }
 
-  const confirmDelete = (maPhim) =>{
+  const confirmDelete = (maPhim) => {
     handleDelete(maPhim);
   }
 
@@ -99,16 +99,20 @@ export default function MovieManagement() {
       notification.success({ message: `Movie is deleted successfully!` });
       fetchMovieList();
     } catch (error) {
-      console.log(maPhim)
-      notification.error({ 
+      notification.error({
         message: `Delete fail!`,
         description: error.response.data.content,
-     });
+      });
     }
   }
 
+  const onClick = (evt) =>{
+    fetchMovieList(evt);
+  }
+console.log("render", movieList)
   return (
     <>
+      <Input.Search onSearch={onClick} allowClear className='mb-3' style={{ width: '100%', }} defaultValue="" />
       <Table columns={columns} dataSource={movieList} onChange={handleChange} />
     </>
   );

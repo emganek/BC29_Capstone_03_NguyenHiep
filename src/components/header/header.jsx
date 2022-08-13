@@ -37,7 +37,7 @@ export default function Header() {
                             <a className="nav-link" href="#news"> News </a>
                         </li>
                         <li className="nav-item ">
-                            <NavLink className="nav-link" to="/admin"> Admin Page </NavLink>
+                            <NavLink className="nav-link" to="/admin/user-management"> Admin Page </NavLink>
                         </li>
                     </ul>
                     {

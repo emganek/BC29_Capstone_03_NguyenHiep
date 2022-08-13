@@ -2,11 +2,19 @@
 import { request } from "../configs/axios";
 import { MA_NHOM } from "../constants/common";
 
-export const fetchMovieListAPI = () => {
-    return request({
-        url: `QuanLyPhim/LayDanhSachPhim?maNhom=${MA_NHOM}`,
-        method: "GET",
-    })
+export const fetchMovieListAPI = (keyword = "") => {
+    if (keyword === ""){
+        return request({
+            url: `QuanLyPhim/LayDanhSachPhim?maNhom=${MA_NHOM}`,
+            method: "GET",
+        })
+    }
+    else{
+        return request({
+            url: `QuanLyPhim/LayDanhSachPhim?maNhom=${MA_NHOM}&tenPhim=${keyword}`,
+            method: "GET",
+        })
+    }
 }
 
 export const fetchMovieDetaiAPI = (maPhim) => {

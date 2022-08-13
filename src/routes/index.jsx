@@ -15,6 +15,7 @@ import UserManagement from '../pages/userManagement/userManagement';
 import MovieAdd from '../pages/movieAdd/movieAdd';
 import MovieEdit from '../pages/movieEdit/movieEdit';
 import MovieSchedule from '../pages/movieSchedule/movieSchedule';
+import UserEdit from '../pages/userEdit/userEdit';
 
 export default function Router() {
     const routing = useRoutes([
@@ -87,6 +88,14 @@ export default function Router() {
                         {
                             path: '/admin/movie-schedule/:movieID',
                             element: <MovieSchedule />,
+                        },
+                        {
+                            path: '/admin/user-management',
+                            element: <UserManagement />,
+                        },
+                        {
+                            path: '/admin/user-edit/:taiKhoan',
+                            element: <UserEdit />,
                         },
                     ]
                 },

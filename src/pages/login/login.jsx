@@ -33,7 +33,7 @@ export default function Login() {
 
             localStorage.setItem(USER_INFO_KEY, JSON.stringify(result.data.content));
             dispatch(setUserInfoAction(result.data.content));
-            navigate(-1);
+            navigate("/home");
             notification.success({
                 message: 'Login success',
             })

@@ -1,6 +1,7 @@
 import { notification } from 'antd';
 import React, { createRef, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { MA_NHOM } from '../../constants/common';
 import { registerAPI } from '../../services/user';
 import './index.css';
 
@@ -10,7 +11,7 @@ const DEFAULT_VALUES = {
     matKhau: "",
     soDt: "",
     email: "",
-    maNhom: "GP03",
+    maNhom: MA_NHOM,
 }
 
 const formRef = createRef();
