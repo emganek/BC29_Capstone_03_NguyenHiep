@@ -20,7 +20,6 @@ export default function MovieList() {
 
     const handleOk = () => {
         setIsModalVisible(false);
-
     };
 
     const handleCancel = () => {
@@ -43,6 +42,7 @@ export default function MovieList() {
 
     useEffect(() => {
         fetchMovieList();
+        window.scrollTo(0, 0);
     }, []);
 
     const fetchMovieList = async () => {

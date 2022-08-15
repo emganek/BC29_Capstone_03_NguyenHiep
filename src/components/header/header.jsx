@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { USER_INFO_KEY } from '../../constants/common';
 import { setUserInfoAction } from '../../store/actions/user.reducer';
 import './index.css';
@@ -48,7 +48,7 @@ export default function Header() {
                             </>
                             :
                             <>
-                                <span className='mr-4 username font-italic'>Welcome {reduxState.userInfo.hoTen}</span>
+                                <Link to='/account-info' className='mr-4 username font-italic'>Welcome {reduxState.userInfo.hoTen}</Link>
                                 <button onClick={handleLogOut} className="btn btn-danger">Log out</button>
                             </>
                     }

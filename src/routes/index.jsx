@@ -16,6 +16,7 @@ import MovieAdd from '../pages/movieAdd/movieAdd';
 import MovieEdit from '../pages/movieEdit/movieEdit';
 import MovieSchedule from '../pages/movieSchedule/movieSchedule';
 import UserEdit from '../pages/userEdit/userEdit';
+import AccountInfoPage from '../pages/accountInfo/accountInfo';
 
 export default function Router() {
     const routing = useRoutes([
@@ -56,6 +57,10 @@ export default function Router() {
                         {
                             path: '/booking/:maLichChieu',
                             element: <Booking />,
+                        },
+                        {
+                            path: '/account-info',
+                            element: <AccountInfoPage />,
                         },
                     ]
                 },

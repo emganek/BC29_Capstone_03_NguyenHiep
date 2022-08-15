@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import './index.css';
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,6 +28,7 @@ const items = [
 
 export default function AdminLayout() {
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <Layout
@@ -37,7 +38,7 @@ export default function AdminLayout() {
             }}
         >
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="logo" />
+                <div className="logo" onClick={()=>navigate('/home')}/>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
             <Layout className="site-layout">

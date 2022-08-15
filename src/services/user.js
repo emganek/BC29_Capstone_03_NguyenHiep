@@ -61,3 +61,18 @@ export const fetchUserTypesAPI = () => {
     })
 }
 
+export const fetchAccountInfoAPI = () => {
+    return request({
+        url: `QuanLyNguoiDung/ThongTinTaiKhoan`,
+        method: "POST",
+    })
+}
+
+
+export const updateAccountInfoAPI = (data) => {
+    return request({
+        url: `QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+        method: "PUT",
+        data,
+    })
+}
