@@ -6,7 +6,7 @@ import './index.css';
 
 const { TabPane } = Tabs;
 const onChange = (key) => {
-  console.log(key);
+
 };
 
 export default function AccountInfoPage() {

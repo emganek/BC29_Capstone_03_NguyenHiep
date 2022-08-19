@@ -109,7 +109,7 @@ export default function MovieManagement() {
   const onClick = (evt) =>{
     fetchMovieList(evt);
   }
-console.log("render", movieList)
+
   return (
     <>
       <Input.Search onSearch={onClick} allowClear className='mb-3' style={{ width: '100%', }} defaultValue="" />

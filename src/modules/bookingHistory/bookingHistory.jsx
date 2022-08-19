@@ -13,7 +13,6 @@ export default function BookingHistory() {
         if (data) {
             data = JSON.parse(data);
             setAccountInfo(data);
-            console.log("local")
         }
         else {
             fetchAccountInfo();
@@ -21,7 +20,6 @@ export default function BookingHistory() {
     }, []);
 
     const fetchAccountInfo = async () => {
-        console.log("fetch")
         let result = await fetchAccountInfoAPI();
         result = result.data.content;
         localStorage.setItem(ACCOUNT_INFO_KEY, JSON.stringify(result));

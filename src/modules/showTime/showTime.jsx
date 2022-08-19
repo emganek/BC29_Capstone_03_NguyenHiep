@@ -15,7 +15,6 @@ export default function ShowTime() {
     const fetchMovieShowTime = async () => {
         const data = await (await fetchMovieShowTimeAPI(params)).data.content;
         setShowTime(data);
-        console.log(data);
     };
 
     const renderTabs = () => {

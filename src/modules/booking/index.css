@@ -1,6 +1,6 @@
 @media screen and (min-width:768px) {
     #booking-ticket {
-        height: 80vh;
+        height: 100vh;
     }
 
     #booking-ticket .booking-ticket-wrapper {

@@ -6,4 +6,4 @@ export const USER_INFO_KEY = 'USER_INFO_KEY';
 
 export const ACCOUNT_INFO_KEY = 'ACCOUNT_INFO_KEY';
 
-export const MA_NHOM = 'GP03';
+export const MA_NHOM = 'GP13';

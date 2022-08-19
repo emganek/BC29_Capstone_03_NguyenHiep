@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import AuthGuard from '../guards/auth.guard';
 import NoAuthGaurd from '../guards/no-auth.guard';
 import AdminLayout from '../layouts/admin';
@@ -105,6 +105,10 @@ export default function Router() {
                     ]
                 },
             ],
+        },
+        {
+            path: '*',
+            element: <Navigate  to='/home' />,
         },
     ])
 
